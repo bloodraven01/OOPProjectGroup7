@@ -1,6 +1,35 @@
 #include <iostream>
+#include <SDL_image.h>
 #include "SDL.h"
 #include "Player.hpp"
+
+
+SDL_Texture* loadTexture( std::string path, SDL_Renderer * rend)
+{
+	//The final texture
+	SDL_Texture* newTexture = NULL;
+
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+	if( loadedSurface == NULL )
+	{
+		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
+	}
+	else
+	{
+		//Create texture from surface pixels
+        newTexture = SDL_CreateTextureFromSurface( rend, loadedSurface );
+		if( newTexture == NULL )
+		{
+			printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+		}
+
+		//Get rid of old loaded surface
+		SDL_FreeSurface( loadedSurface );
+	}
+
+	return newTexture;
+}
 
 
 
@@ -11,6 +40,7 @@ int main(int argc, char * argv[]) {
     SDL_Event e;
     SDL_Window * window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 800, SDL_WINDOW_SHOWN);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+    SDL_Texture * bg = loadTexture("pexels-ahmad-18536470.jpg", renderer);
     bool running = true;
     double move_speed = 10;
 
@@ -59,12 +89,13 @@ int main(int argc, char * argv[]) {
 
         }
 
-        SDL_SetRenderDrawColor(renderer, 0, 0,  0, 255);
+        //SDL_SetRenderDrawColor(renderer, 0, 0,  0, 255);
         SDL_RenderClear(renderer);
 
-        SDL_SetRenderDrawColor(renderer, 255, 255,  255, 255);
+        //SDL_SetRenderDrawColor(renderer, 255, 255,  255, 255);
+        
+        SDL_RenderCopy(renderer, bg, NULL, NULL);
         SDL_RenderFillRect(renderer, main_player.get_sprite());
-
         SDL_RenderPresent(renderer);
         SDL_Delay(10);
 
