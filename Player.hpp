@@ -7,9 +7,10 @@ class Player : public Character{
 
     public:
 
-        Player(double health_val, double speed_val) : Character(health_val, speed_val) {}
+        Player(double health_val, double speed_val, int no_of_frames) : Character(health_val, speed_val, no_of_frames) {}
         void movement(SDL_Event& key_press);
         SDL_Rect * get_sprite();
+        bool moving_forward;
 
     private:
 
