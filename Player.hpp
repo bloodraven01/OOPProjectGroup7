@@ -11,6 +11,7 @@ class Player : public Character{
         void movement(SDL_Event& key_press);
         SDL_Rect * get_sprite();
         bool moving_forward;
+        void jump();
 
     private:
 
