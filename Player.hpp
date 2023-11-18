@@ -2,13 +2,15 @@
 #include <SDL.h>
 #include "Character.hpp"
 
-
 class Player : public Character{
 
     public:
 
-        Player(double health_val, double speed_val, int no_of_frames) : Character(health_val, speed_val, no_of_frames) {}
+        Player(double health_val, double speed_val) : Character(health_val, speed_val) {}
         void movement(SDL_Event& key_press);
+        void movementright();
+        void movementleft();
+        void movementjump();
         SDL_Rect * get_sprite();
         bool moving_forward;
         void jump();

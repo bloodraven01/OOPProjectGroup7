@@ -1,6 +1,6 @@
 #include "AudioPlayer.hpp"
 
-
+/*
 void AudioPlayer::load_music(const char * file) {
 
     music = Mix_LoadMUS(file);
@@ -13,4 +13,4 @@ void AudioPlayer::play_music(int loops) {
     else {Mix_PlayMusic(music, 2);}
     
 
-}
+}*/

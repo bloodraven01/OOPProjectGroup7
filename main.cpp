@@ -4,6 +4,8 @@
 #include "Player.hpp"
 
 
+
+
 SDL_Texture* loadTexture( std::string path, SDL_Renderer * rend)
 {
 	//The final texture
@@ -31,7 +33,10 @@ SDL_Texture* loadTexture( std::string path, SDL_Renderer * rend)
 	return newTexture;
 }
 
-
+void renderTexture(SDL_Texture* texture, SDL_Renderer* renderer, int x, int y, int w, int h, int offsetX) {
+    SDL_Rect renderQuad = { x + offsetX, y, w, h };  
+    SDL_RenderCopy(renderer, texture, nullptr, &renderQuad);
+}
 
 int main(int argc, char * argv[]) {
 
@@ -53,11 +58,11 @@ int main(int argc, char * argv[]) {
 
     SDL_Texture * current_texture = player_f1;
 
-    Player main_player(0, 40, 2);
+    Player main_player(0, 40);
 
     //SDL_RenderDrawRect(renderer, &r1);
 
-
+    int backgroundX = 0;
 
     while (running) {
 
@@ -76,7 +81,19 @@ int main(int argc, char * argv[]) {
 
             if (e.type == SDL_KEYDOWN) {
 
-                main_player.movement(e);
+                if (e.key.keysym.sym == SDLK_d){
+                backgroundX += 1;
+                main_player.movementright();
+                }
+                
+                else if (e.key.keysym.sym == SDLK_a){
+                backgroundX -= 1;
+                main_player.movementleft();
+                }
+                
+                else if (e.key.keysym.sym == SDLK_w){
+                main_player.movementjump();
+                }
             }
 /*
                 std::cout << "key "  <<  e.key.keysym.sym <<" was pressed! \n";
@@ -149,10 +166,13 @@ int main(int argc, char * argv[]) {
 
         
 
-        //SDL_RenderFillRect(renderer, main_player.get_sprite());
-        SDL_SetRenderTarget(renderer, player_f1);
-        SDL_RenderPresent(renderer);
-        SDL_Delay(200);
+    SDL_RenderClear(renderer);
+
+    renderTexture(bg, renderer, 0, 0, 1200, 800, -backgroundX);  
+    renderTexture(current_texture, renderer, main_player.get_sprite()->x, main_player.get_sprite()->y, main_player.get_sprite()->w, main_player.get_sprite()->h, 0);
+
+    SDL_RenderPresent(renderer);
+    SDL_Delay(16);
 
     }
 

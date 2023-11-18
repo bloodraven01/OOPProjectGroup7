@@ -1,33 +1,28 @@
 #include "Player.hpp"
 #include <cmath>
 
-
 bool jumping = false;
 int jumpspeed = 0;
 
-void Player::movement(SDL_Event& key_press) {
 
-    if (key_press.key.keysym.sym == SDLK_d) {
-
-        sprite.x += speed;
+void Player::movementright() {
+        //sprite.x += speed;
         moving_forward = true;
+}
 
-    }
+void Player::movementleft() {
 
-    else if (key_press.key.keysym.sym == SDLK_a) {
-
-        sprite.x -= speed;
+        //sprite.x -= speed;
         moving_forward = false;
 
-    }
-    else if (key_press.key.keysym.sym == SDLK_w) {
-
-        if (!jumping) {
-                    jumpspeed = -sqrt(2 * 9 * speed);
-                    jumping = true;
-                }
-        }    
 }
+
+void Player::movementjump() {
+    if (!jumping) {
+        jumpspeed = -sqrt(2 * 9 * speed);
+        jumping = true;
+    }
+}   
 
 void Player::jump(){
     if (jumping){
