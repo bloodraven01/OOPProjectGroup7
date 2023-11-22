@@ -1,11 +1,4 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
-
 #include <iostream>
-
-
-
-
 
 class Character {
 
@@ -19,5 +12,3 @@ class Character {
         double health;
         double speed;
 };
-
-#endif /* CHARACTER_H */

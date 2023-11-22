@@ -2,7 +2,6 @@
 #include <SDL_image.h>
 #include "SDL.h"
 #include "Player.hpp"
-#include "Enemy.hpp"
 
 
 
@@ -57,20 +56,9 @@ int main(int argc, char * argv[]) {
     SDL_Texture * player_f3 = loadTexture("assets\\player\\walk_left_1.png", renderer);
     SDL_Texture * player_f4 = loadTexture("assets\\player\\walk_left_2.png", renderer);
 
-    SDL_Texture * current_texture_player = player_f1;
-
-    SDL_Texture * enemy_f1 = loadTexture("assets\\player\\walk_right_1.png", renderer);
-    SDL_Texture * enemy_f2 = loadTexture("assets\\player\\walk_right_2.png", renderer);
-    SDL_Texture * enemy_f3 = loadTexture("assets\\player\\walk_left_1.png", renderer);
-    SDL_Texture * enemy_f4 = loadTexture("assets\\player\\walk_left_2.png", renderer);
-
-    SDL_Texture * current_texture_enemy = enemy_f1;
-
+    SDL_Texture * current_texture = player_f1;
 
     Player main_player(0, 40);
-
-    Enemy first_enemy(0,40);
-
 
     //SDL_RenderDrawRect(renderer, &r1);
 
@@ -141,55 +129,47 @@ int main(int argc, char * argv[]) {
 
         if (main_player.moving_forward) {
             
-            if (current_texture_player == player_f1) {
+            if (current_texture == player_f1) {
         
-                SDL_RenderCopy(renderer, current_texture_player, NULL, main_player.get_sprite());
-                current_texture_player = player_f2;
+                SDL_RenderCopy(renderer, current_texture, NULL, main_player.get_sprite());
+                current_texture = player_f2;
                 
             }
 
             else {
                 
-            SDL_RenderCopy(renderer, current_texture_player, NULL, main_player.get_sprite());
-            current_texture_player = player_f1;
+            SDL_RenderCopy(renderer, current_texture, NULL, main_player.get_sprite());
+            current_texture = player_f1;
             
             }
         }
 
         else {
 
-            if (current_texture_player == player_f3) {
+            if (current_texture == player_f3) {
         
-                SDL_RenderCopy(renderer, current_texture_player, NULL, main_player.get_sprite());
-                current_texture_player = player_f4;
+                SDL_RenderCopy(renderer, current_texture, NULL, main_player.get_sprite());
+                current_texture = player_f4;
                 
             }
 
             else {
                 
-            SDL_RenderCopy(renderer, current_texture_player, NULL, main_player.get_sprite());
-            current_texture_player = player_f3;
+            SDL_RenderCopy(renderer, current_texture, NULL, main_player.get_sprite());
+            current_texture = player_f3;
 
 
 
 
         }
-    
         }
 
-    first_enemy.movement();
-        
-    SDL_RenderCopy(renderer, current_texture_enemy, NULL, first_enemy.get_sprite());
-                
-           
         
 
     SDL_RenderClear(renderer);
 
     renderTexture(bg, renderer, 0, 0, 1200, 800, -backgroundX);  
-    renderTexture(current_texture_player, renderer, main_player.get_sprite()->x, main_player.get_sprite()->y, main_player.get_sprite()->w, main_player.get_sprite()->h, 0);
-
-    renderTexture(current_texture_enemy, renderer, first_enemy.get_sprite()->x, first_enemy.get_sprite()->y, first_enemy.get_sprite()->w, first_enemy.get_sprite()->h, -backgroundX);
+    renderTexture(current_texture, renderer, main_player.get_sprite()->x, main_player.get_sprite()->y, main_player.get_sprite()->w, main_player.get_sprite()->h, 0);
 
     SDL_RenderPresent(renderer);
     SDL_Delay(16);
