@@ -34,9 +34,9 @@ SDL_Texture* loadTexture( std::string path, SDL_Renderer * rend)
 	return newTexture;
 }
 
-void renderTexture(SDL_Texture* texture, SDL_Renderer* renderer, int x, int y, int w, int h, int offsetX) {
-    SDL_Rect renderQuad = { x + offsetX, y, w, h };  
-    SDL_RenderCopy(renderer, texture, nullptr, &renderQuad);
+void renderTexture(SDL_Texture* texture, SDL_Renderer* renderer, int x, int y, int w, int h, int offsetX, SDL_Rect* portion) {
+    SDL_Rect renderQuad = {x + offsetX, y, w, h};
+    SDL_RenderCopy(renderer, texture, portion, &renderQuad);
 }
 
 int main(int argc, char * argv[]) {
@@ -49,6 +49,13 @@ int main(int argc, char * argv[]) {
     SDL_Texture * bg = loadTexture("assets\\bg\\pexels-ömer-derinyar-17718121.jpg", renderer);
     bool running = true;
     double move_speed = 10;
+    int strip_width = 4514/2;  
+    int strip_height = 3009;  
+
+    // Initialize player portion
+    SDL_Rect imagestrip = {0, 0, strip_width, strip_height};
+
+   
 
     //SDL_Rect r1{20, 700, 40, 40};
 
@@ -94,13 +101,17 @@ int main(int argc, char * argv[]) {
             if (e.type == SDL_KEYDOWN) {
 
                 if (e.key.keysym.sym == SDLK_d){
-                backgroundX += 1;
-                main_player.movementright();
+                    if (imagestrip.x < 753) {
+                        backgroundX += 1;
+                        imagestrip.x += 1;  
+                    }
                 }
                 
                 else if (e.key.keysym.sym == SDLK_a){
-                backgroundX -= 1;
-                main_player.movementleft();
+                    if (imagestrip.x > 1) {
+                        backgroundX -=1;
+                        imagestrip.x -= 1;  
+                    }
                 }
                 
                 else if (e.key.keysym.sym == SDLK_w){
@@ -179,17 +190,17 @@ int main(int argc, char * argv[]) {
 
     first_enemy.movement();
         
-    SDL_RenderCopy(renderer, current_texture_enemy, NULL, first_enemy.get_sprite());
+    //SDL_RenderCopy(renderer, current_texture_enemy, NULL, first_enemy.get_sprite());
                 
            
         
 
     SDL_RenderClear(renderer);
 
-    renderTexture(bg, renderer, 0, 0, 1200, 800, -backgroundX);  
-    renderTexture(current_texture_player, renderer, main_player.get_sprite()->x, main_player.get_sprite()->y, main_player.get_sprite()->w, main_player.get_sprite()->h, 0);
+    renderTexture(bg, renderer, 0, 0, 1200, 800, 0,&imagestrip);  
+    renderTexture(current_texture_player, renderer, main_player.get_sprite()->x, main_player.get_sprite()->y, main_player.get_sprite()->w, main_player.get_sprite()->h, 0,NULL);
 
-    renderTexture(current_texture_enemy, renderer, first_enemy.get_sprite()->x, first_enemy.get_sprite()->y, first_enemy.get_sprite()->w, first_enemy.get_sprite()->h, -backgroundX);
+    renderTexture(current_texture_enemy, renderer, first_enemy.get_sprite()->x, first_enemy.get_sprite()->y, first_enemy.get_sprite()->w, first_enemy.get_sprite()->h, -backgroundX,NULL);
 
     SDL_RenderPresent(renderer);
     SDL_Delay(16);
@@ -198,4 +209,4 @@ int main(int argc, char * argv[]) {
 
 
     return 0;
-    }
+    } 
