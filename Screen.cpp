@@ -2,7 +2,7 @@
 
 bool Screen::display(SDL_Renderer * rend, SDL_Texture * background, bool& running, SDL_Event& e, SDL_Texture ** tex_arr) {
 
-    while (!running) {
+    while (running) {
 
         SDL_RenderClear(rend);  
         SDL_RenderCopy(rend, background, nullptr, nullptr);

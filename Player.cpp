@@ -5,14 +5,18 @@ bool jumping = false;
 int jumpspeed = 0;
 
 
-void Player::movementright() {
-        //sprite.x += speed;
+void Player::movementright(int image) {
+
+    if (image > 753){
+        sprite.x += speed;
+    }
         moving_forward = true;
 }
 
 void Player::movementleft() {
-
-        //sprite.x -= speed;
+    if(sprite.x > 20){
+        sprite.x -= speed;
+    }
         moving_forward = false;
 
 }

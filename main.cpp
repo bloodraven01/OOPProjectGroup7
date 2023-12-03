@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "Screen.hpp"
 
 
 
@@ -46,7 +47,7 @@ int main(int argc, char * argv[]) {
     SDL_Event e;
     SDL_Window * window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 800, SDL_WINDOW_SHOWN);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
-    SDL_Texture * bg = loadTexture("assets\\bg\\pexels-ömer-derinyar-17718121.jpg", renderer);
+    SDL_Texture * bg;
     bool running = true;
     double move_speed = 10;
     int strip_width = 4514/2;  
@@ -78,6 +79,19 @@ int main(int argc, char * argv[]) {
 
     Enemy first_enemy(0,40);
 
+    Screen main_screen;
+
+    SDL_Texture * texture_main_screen[3] = {
+
+    loadTexture("assets\\bg\\startscreen.png", renderer),
+    loadTexture("assets\\bg\\startbuttonpress.png", renderer), 
+    loadTexture("assets\\bg\\exitbuttonpress.png", renderer) 
+    
+    };
+
+    running = main_screen.display(renderer, bg, running, e, texture_main_screen);
+
+    bg = loadTexture("assets\\bg\\pexels-ömer-derinyar-17718121.jpg", renderer);
 
     //SDL_RenderDrawRect(renderer, &r1);
 
@@ -101,20 +115,22 @@ int main(int argc, char * argv[]) {
             if (e.type == SDL_KEYDOWN) {
 
                 if (e.key.keysym.sym == SDLK_d){
+                    main_player.movementright(imagestrip.x);
                     if (imagestrip.x < 753) {
-                        backgroundX += 1;
-                        imagestrip.x += 1;  
+                        backgroundX += 10;
+                        imagestrip.x += 10;  
                     }
                 }
                 
-                else if (e.key.keysym.sym == SDLK_a){
+                if (e.key.keysym.sym == SDLK_a){
                     if (imagestrip.x > 1) {
-                        backgroundX -=1;
-                        imagestrip.x -= 1;  
+                        main_player.movementleft();
+                        backgroundX -= 10;
+                        imagestrip.x -= 10;  
                     }
                 }
                 
-                else if (e.key.keysym.sym == SDLK_w){
+                if (e.key.keysym.sym == SDLK_w){
                 main_player.movementjump();
                 }
             }
@@ -187,6 +203,7 @@ int main(int argc, char * argv[]) {
         }
     
         }
+        
 
     first_enemy.movement();
         

@@ -8,7 +8,7 @@ class Player : public Character{
 
         Player(double health_val, double speed_val) : Character(health_val, speed_val) {}
         void movement(SDL_Event& key_press);
-        void movementright();
+        void movementright(int image);
         void movementleft();
         void movementjump();
         SDL_Rect * get_sprite();
