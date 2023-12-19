@@ -1,3 +1,5 @@
+
+#include "Enemy.hpp"
 #include <iostream>
 #include <SDL.h>
 #include "Character.hpp"
@@ -11,6 +13,7 @@ class Player : public Character{
         void movementright(int image);
         void movementleft();
         void movementjump();
+        bool iscolliding(Enemy obj, int num);
         SDL_Rect * get_sprite();
         bool moving_forward;
         void jump();

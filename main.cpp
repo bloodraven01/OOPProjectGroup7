@@ -94,6 +94,9 @@ int main(int argc, char * argv[]) {
     bg = loadTexture("assets\\bg\\pexels-ömer-derinyar-17718121.jpg", renderer);
 
     //SDL_RenderDrawRect(renderer, &r1);
+    // Define the number of keys
+    const int NUM_KEYS = 256;
+    bool keyState[NUM_KEYS] = {false};
 
     int backgroundX = 0;
 
@@ -101,39 +104,40 @@ int main(int argc, char * argv[]) {
 
 
 
-        while (SDL_PollEvent(&e)) {
-
+         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE) {
-
-
                 running = false;
-
             }
-
-
 
             if (e.type == SDL_KEYDOWN) {
-
-                if (e.key.keysym.sym == SDLK_d){
-                    main_player.movementright(imagestrip.x);
-                    if (imagestrip.x < 753) {
-                        backgroundX += 10;
-                        imagestrip.x += 10;  
-                    }
-                }
-                
-                if (e.key.keysym.sym == SDLK_a){
-                    if (imagestrip.x > 1) {
-                        main_player.movementleft();
-                        backgroundX -= 10;
-                        imagestrip.x -= 10;  
-                    }
-                }
-                
-                if (e.key.keysym.sym == SDLK_w){
-                main_player.movementjump();
-                }
+                keyState[e.key.keysym.scancode] = true;
+            } else if (e.type == SDL_KEYUP) {
+                keyState[e.key.keysym.scancode] = false;
             }
+        }
+
+
+
+            if (keyState[SDL_SCANCODE_A]) {
+            main_player.movementleft();
+            if (imagestrip.x > 1 && main_player.get_sprite()->x <= 20) {
+                backgroundX -= 10;
+                imagestrip.x -= 10;
+            }
+        }
+
+        if (keyState[SDL_SCANCODE_D]) {
+            main_player.movementright(imagestrip.x);
+            if (imagestrip.x < 753) {
+                backgroundX += 10;
+                imagestrip.x += 10;
+            }
+        }
+
+        if (keyState[SDL_SCANCODE_W]) {
+            main_player.movementjump();
+        }
+
 /*
                 std::cout << "key "  <<  e.key.keysym.sym <<" was pressed! \n";
 
@@ -152,9 +156,6 @@ int main(int argc, char * argv[]) {
 
             }
 */
-
-
-        }
 
         //jump implementation
         main_player.jump();
@@ -209,7 +210,9 @@ int main(int argc, char * argv[]) {
         
     //SDL_RenderCopy(renderer, current_texture_enemy, NULL, first_enemy.get_sprite());
                 
-           
+    if (main_player.iscolliding(first_enemy,backgroundX)){
+        std::cout << "Collision Detected";
+    }
         
 
     SDL_RenderClear(renderer);

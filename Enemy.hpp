@@ -1,3 +1,6 @@
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include "Character.hpp"
 #include "SDL.h"
 
@@ -12,3 +15,5 @@ class Enemy: public Character{
     private:
     SDL_Rect sprite{210, 700, 40, 40};
 };
+
+#endif /* ENEMY_H */

@@ -7,7 +7,7 @@ int jumpspeed = 0;
 
 void Player::movementright(int image) {
 
-    if (image > 753){
+    if (image > 753 && sprite.x < 1100){
         sprite.x += speed;
     }
         moving_forward = true;
@@ -41,3 +41,20 @@ void Player::jump(){
 }
 
 SDL_Rect * Player::get_sprite() {return &sprite;}
+
+bool Player::iscolliding(Enemy obj, int num){
+    SDL_Rect* objsprite = obj.get_sprite();
+    double objmaxx = objsprite->w + objsprite->x - num ;
+    double objmaxy = objsprite->h + objsprite->y;
+    double playermaxx = sprite.w+sprite.x;
+    double playermaxy = sprite.h+sprite.y;
+
+    if (playermaxx <= objmaxx && playermaxy <= objmaxy){
+        if (sprite.x >= objsprite->x - num && sprite.y >= objsprite->y){
+            return true;
+        }
+    }
+    return false;
+
+
+}
