@@ -41,7 +41,7 @@ void Level::Initializelevel1(Player& player)
     enemyvect.push_back(new Enemy(enemy1));
     enemyvect.push_back(new Enemy(enemy2));
 
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level1bg.png";
+    bgpath = "assets\\bg\\level1bg.png";
 
     currentlevel = 1;
 }
@@ -103,7 +103,7 @@ void Level::Initializelevel2(Player& player) {
 
     currentlevel = 2;
 
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level2bg.png";
+    bgpath = "assets\\bg\\level2bg.png";
 
 
 }
@@ -127,7 +127,7 @@ void Level::Initializelevel3(Player& player){
 
     nextlevelportal = 1100;
 
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level3bg.png";
+    bgpath = "assets\\bg\\level3bg.png";
 
     currentlevel = 3;
 
@@ -162,7 +162,7 @@ void Level::Initializelevel4(Player& player){
     spikevect.push_back(new Spike(ob2));
     spikevect.push_back(new Spike(ob3));
     
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level4bg.png";
+    bgpath = "assets\\bg\\level4bg.png";
 
     currentlevel = 4;
 }
@@ -219,7 +219,7 @@ void Level::Initializelevel6(Player& player){
 
     nextlevelportal = 1100;
 
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level6bg.png";
+    bgpath = "assets\\bg\\level6bg.png";
 
     currentlevel = 6;
 }
@@ -240,7 +240,7 @@ void Level::Initializelevel7(Player& player){
 
     nextlevelportal = 1100;
 
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level7bg.png";
+    bgpath = "assets\\bg\\level7bg.png";
 
     currentlevel = 7;
 
@@ -270,7 +270,7 @@ void Level::Initializelevel8(Player& player){
     enemyvect.push_back(new Enemy(enemy1));
     enemyvect.push_back(new Enemy(enemy2));
 
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level8bg.png";
+    bgpath = "assets\\bg\\level8bg.png";
     currentlevel = 8;
 }
 
@@ -314,7 +314,7 @@ void Level::Initializelevel9(Player& player) {
     enemyvect.push_back(new Enemy(fly_en2));
     enemyvect.push_back(new Enemy(fly_en3));
 
-    bgpath = "C:\\Users\\Tahas\\OneDrive\\Documents\\GitHub\\OOPProjectGroup7\\assets\\bg\\level9bg.png";
+    bgpath = "assets\\bg\\level9bg.png";
     currentlevel = 9;
  
 } 
